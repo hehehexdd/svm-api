@@ -1,4 +1,4 @@
-name: Docker Build and Run
+name: Build and Test
 
 on:
   push:
@@ -7,13 +7,25 @@ on:
 
 jobs:
   build:
+    name: Build Docker Image
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-      - name: Build Docker image
-        run: docker build -t svm-api .
-        run: docker run -it --rm svm-api pytest
-        run: docker run -d -p 8000:8000 svm-api
+    - name: Build Docker image
+      run: docker build -t svm-api .
 
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+
+    needs: build
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Run Tests
+      run: docker run -it --rm svm-api pytest
