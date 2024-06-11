@@ -4,7 +4,7 @@ This project provides a REST API for training and using an SVM classifier on the
 
 ## Requirements
 
-- Python 3.12
+- Python 3.11
 - Docker
 
 ## Setup
