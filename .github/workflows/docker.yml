@@ -1,0 +1,19 @@
+name: Docker Build and Run
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Build Docker image
+        run: docker build -t svm-api .
+        run: docker run -it --rm svm-api pytest
+        run: docker run -d -p 8000:8000 svm-api
+
